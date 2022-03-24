@@ -6,7 +6,10 @@ def ScrapeCurrpage(myurl):
     uClient = uReq(myurl)
     page_html = uClient.read()
     uClient.close()
+    
     page_soup = soup(page_html, "html.parser")
+    
+    # Finding the card and writing in the File
     bookshelf = page_soup.findAll(
         "li", {"class": "col-xs-6 col-sm-4 col-md-3 col-lg-3"})
     filename = ("Al100Books.csv")
@@ -15,6 +18,7 @@ def ScrapeCurrpage(myurl):
     headers = "Title, Price\n"
     f.write(headers)
     
+    # Printing out Title and price in terminal (For debug purposes)
     for books in bookshelf:
     
         book_title = books.h3.a["title"]
@@ -28,7 +32,7 @@ def ScrapeCurrpage(myurl):
     
     f.close()
 
-
+# Loop for fetching all 1000 books spread across all the pages, We know there are 50 pages from observation
 for page_number in range(1,51): 
     myurl = f'https://books.toscrape.com/catalogue/page-{page_number}.html'
     print("__________________________________________________________\n")
