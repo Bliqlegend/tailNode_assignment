@@ -20,5 +20,5 @@ Part B:
 
 1. Scraping of all the books in the database
 
-![image](https://user-images.githubusercontent.com/53972008/160050090-530a5c47-3be7-4228-a830-fc1719e7ecaf.png)
+![image](https://user-images.githubusercontent.com/53972008/160061947-87e70913-56ae-4adf-a393-8220491e3b85.png)
 
