@@ -12,7 +12,7 @@ def ScrapeCurrpage(myurl):
     bookshelf = page_soup.findAll(
         "li", {"class": "col-xs-6 col-sm-4 col-md-3 col-lg-3"})
     filename = ("Al1000Books.csv")
-    f = open(filename, "w")
+    f = open(filename, "a")
     
     headers = "Title, Price\n"
     f.write(headers)
