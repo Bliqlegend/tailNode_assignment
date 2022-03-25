@@ -1,6 +1,10 @@
 from urllib.request import urlopen as uReq
 from bs4 import BeautifulSoup as soup
-
+import requests as r
+import json
+from pymongo import MongoClient
+import csv
+import pandas as pd
 
 def ScrapeCurrpage(myurl):
     uClient = uReq(myurl)
@@ -21,6 +25,7 @@ def ScrapeCurrpage(myurl):
     for books in bookshelf:
     
         book_title = books.h3.a["title"]
+        book_title = book_title[:30]
         book_price = books.findAll("p", {"class": "price_color"})
         book_availability = books.find('p', {'class': 'instock availability'}).text.strip()
         book_Ratings = books.findAll("p", {"class": "star-rating One"})
@@ -35,9 +40,9 @@ def ScrapeCurrpage(myurl):
             book_rating = 4
         elif len(books.findAll("p", {"class": "star-rating Five"}))!=0:
             book_rating = 5
+        else:
+            book_rating=0
 
-        # print("Ratings")
-        # print(book_Ratings)
      
         print("Title of the book : " + book_title)
         print("Price of the book : " + price)
@@ -56,3 +61,17 @@ for page_number in range(1,51):
     print(f"Page {page_number}")
     print("__________________________________________________________")
     ScrapeCurrpage(myurl)
+
+# Store in database
+df = pd.read_csv('Al1000Books.csv', on_bad_lines='skip',encoding = 'ISO-8859-1')
+df.to_json('Books.json')                              
+jdf = open('Books.json').read()                        
+data = json.loads(jdf)     
+
+with open('Books.json') as file:
+    file_data = json.load(file)
+      
+if isinstance(file_data, list):
+    Collection.insert_many(file_data)  
+else:
+    Collection.insert_one(file_data)
