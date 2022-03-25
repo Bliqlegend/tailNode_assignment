@@ -14,7 +14,7 @@ def ScrapeCurrpage(myurl):
     filename = ("Al1000Books.csv")
     f = open(filename, "a")
     
-    headers = "Title, Price\n"
+    headers = "Title, Price , Availability, Rating \n"
     f.write(headers)
     
     # Printing the Titile and Price for Debug purposes
@@ -22,10 +22,15 @@ def ScrapeCurrpage(myurl):
     
         book_title = books.h3.a["title"]
         book_price = books.findAll("p", {"class": "price_color"})
+        book_availability = books.findAll("p", {"class": "price_color"})
+        book Ratings = books.findAll("p", {"class": "star-rating Three"})
         price = book_price[0].text.strip()
     
         print("Title of the book :" + book_title)
         print("Price of the book :" + price)
+        print("Availability of the book :" + price)
+        print("Rating of the book :" + price)
+
     
         f.write(book_title + "," + price+"\n")
     
