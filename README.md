@@ -22,3 +22,6 @@ Part B:
 
 ![image](https://user-images.githubusercontent.com/53972008/160061947-87e70913-56ae-4adf-a393-8220491e3b85.png)
 
+2. Saved in Database
+
+![image](https://user-images.githubusercontent.com/53972008/160065672-d67cfe1d-18e8-4aa6-8732-7c8204b3e9ac.png)
