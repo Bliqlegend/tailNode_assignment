@@ -17,32 +17,35 @@ def ScrapeCurrpage(myurl):
     headers = "Title, Price , Availability, Rating \n"
     f.write(headers)
     
-    # Printing the Titile and Price for Debug purposes
+    # Printing the Titile,  Price, availability and Rating for Debug purposes
     for books in bookshelf:
     
         book_title = books.h3.a["title"]
         book_price = books.findAll("p", {"class": "price_color"})
-        book_availability = books.findAll("p", {"class": "instock availability"})
-        book_Ratings = books.findAll("p", {"class": "star-rating Three"})
-        # if "In Stock" in book_availability: 
-            # aval = True
-        print(book_availability)
+        book_availability = books.find('p', {'class': 'instock availability'}).text.strip()
+        book_Ratings = books.findAll("p", {"class": "star-rating One"})
         price = book_price[0].text.strip()
-        # if aval:
-        #     print("Availability : In Stock")
-        # else:
-        #     print("Availability : Not in Stock")
+        if len(books.findAll("p", {"class": "star-rating One"}))!=0:
+            book_rating = 1
+        elif len(books.findAll("p", {"class": "star-rating Two"}))!=0:
+            book_rating = 2
+        elif len(books.findAll("p", {"class": "star-rating Three"}))!=0:
+            book_rating = 3
+        elif len(books.findAll("p", {"class": "star-rating Four"}))!=0:
+            book_rating = 4
+        elif len(books.findAll("p", {"class": "star-rating Five"}))!=0:
+            book_rating = 5
 
         # print("Ratings")
         # print(book_Ratings)
-    
-        # print("Title of the book :" + book_title)
-        # print("Price of the book :" + price)
-        # print("Availability of the book :" + price)
-        # print("Rating of the book :" + price)
+     
+        print("Title of the book : " + book_title)
+        print("Price of the book : " + price)
+        print("Availability of the book : " + book_availability)
+        print("Rating of the book : " + str(book_rating))
 
     
-        f.write(book_title + "," + price+"\n")
+        f.write(book_title + " , " + price +' , '+ book_availability +' , '+ str(book_rating) +"\n")
     
     f.close()
 
@@ -53,4 +56,3 @@ for page_number in range(1,51):
     print(f"Page {page_number}")
     print("__________________________________________________________")
     ScrapeCurrpage(myurl)
-    break
